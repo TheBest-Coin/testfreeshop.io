@@ -64,7 +64,7 @@
                         email: email.value,
                         password: password.value,
                         options: {
-                            emailRedirectTo: 'http://127.0.0.1:5500/log.html' // آدرس باز شدن بعد از تأیید ایمیل
+                            emailRedirectTo: 'https://thebest-coin.github.io/testfreeshop.io/log.html' // آدرس باز شدن بعد از تأیید ایمیل
                         }
 
                     })
