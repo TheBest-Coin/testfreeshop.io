@@ -1,15 +1,347 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl">
+<html lang="en" dir="ltr">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0 ,user-scalable=no" />
   <title>Main</title>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <link rel="stylesheet" href="./style/main.css">
 </head>
-<body style="background-color: black; display: flex; flex-direction: row; justify-content: center; align-items: center; width: 100%; height: 100%;">
-  <div style="background-color: rgb(0, 0, 81); border-radius: 1rem; width: 50%; height: 15rem; display: flex; flex-direction: row; justify-content: center; align-items: center;">
+<style>
+  body{
+    /* background-color: #000022; */
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    background-color: #000022;
+    justify-content: space-between;
+
+}
+
+.header{
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    height: 4.7rem;
+    background-color: rgb(17, 17, 17);
+}
+.logodiv{
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    width: 30%;
+    height: 100%;
+}
+.logo{
+    height: 100%;
+    filter: drop-shadow(0rem 0rem 0.5rem #EE00ff);
+}
+.valuediv{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 80%;
+    height: 100%;
+}
+.BlackValueDiv{
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    color: black;
+    overflow: hidden;
+}
+.valuebox{
+    width: 80%;
+    height: 100%;
+    color: white;
+}
+.psRightDiv{
+    width: 80%;
+    height: 50%;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    margin-right: 1.5rem;
+    align-items: center;
+    gap: 0.5rem;
+}
+.suportdiv{
+    width: 20%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    
+}
+.SuportBtn{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-radius: 1rem;
+    border-style: double;
+    border-width: 0.1rem;
+    width: 60%;
+    color: white;
+    height: 50%;
+    border-color: #9b00a6;
+    background-color: #EE00ff;
+    box-shadow: 0rem 0rem 1rem  #EE00ff ;
+}
+.bii{
+    background-color: rgb(144, 109, 20);
+    border-radius: 1rem;
+    box-shadow:0rem 0rem 1rem  gold ;
+    color: gold;
+}
+#pointvalue{
+    font-size: 1.5rem;
+    text-shadow: 0rem 0rem 0.8rem  white ;
+}
+/* Header Complete */
+
+
+/* main */
+.Profsec{
+    display: flex;
+    flex-direction: column;
+    margin-top: 6rem;
+    margin-left: 1rem;
+    width: 100%;
+    height: 50rem;
+    background-color: #000022;
+}
+.mainDiv{
+    /* background-color: yellow; */
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    align-items: start;
+    justify-content: start;
+    gap: 5rem;
+}
+
+.main1{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    overflow: hidden;
+    height: 20%;
+}
+.welcomeH2{
+    display: flex;
+    flex-direction: row;
+    margin-left: 1rem;
+    color: white;
+    text-shadow: 0rem 0rem 1rem rgb(245, 150, 166);
+    width: 100%;
+    font-size: 2rem;
+    /* background-color: black; */
+}
+.emaildiv{
+    width: 70%;
+    height: 3rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-left: 1rem;
+    border-style: dashed;
+    border-width: 0.1rem;
+    border-color: #000057;
+    border-radius: 0.3rem;
+    box-shadow: 0rem 0rem 1rem #00003e ;
+    /* background-color: rgb(17, 17, 17); */
+    color: white;
+}
+.emailp{
+    text-shadow: 0rem 0rem 0.5rem rgb(245, 150, 166);
+}
+
+.main2{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: start;
+    margin-top: -4rem;
+    margin-left: 1rem;
+    color: white;
+    width: 100%;
+    height: 20%;
+    /* background-color: red; */
+    text-shadow: 0rem 0rem 1rem rgb(245, 150, 166) ;
+    font-size: 1.2rem;
+    font-weight: 700;
+    
+}
+#Rankp{
+    display: flex;
+    flex-direction: row;
+    margin-top: -0.5rem;
+}
+#Levelp{
+    display: flex;
+    flex-direction: row;
+    margin-top: -0.5rem;
+}
+#Pointsp{
+    display: flex;
+    flex-direction: row;
+    margin-top: -0.5rem;
+}
+
+.main3{
+    display: flex;
+    flex-direction: column;
+    margin-top: 1rem;
+    width: 100%;
+    /* background-color: red; */
+}
+.logoutbtn{
+    background-color: pink;
+    width: 25%;
+    height: 2rem;
+    border-radius: 0.3rem;
+    color: white;
+    border-color: #9b00a6;
+    background-color: #EE00ff;
+    box-shadow: 0rem 0rem 1rem  #EE00ff ;
+}
+
+
+/* main complete */
+
+.footer{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3rem;
+    z-index: 1000;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    align-self:end;
+}
+.btns{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+    justify-content: space-around;
+    align-items: center;
+    background-color: rgb(17, 17, 17);
+    border-radius: 1rem 1rem 0rem 0rem ;    
+}
+.btns input{
+    background-color: rgb(17, 17, 17);
+    border-radius: 1rem 1rem 0rem 0rem ;
+    width: 30%;
+    height: 100%;
+    color: white;
+    font-size: 1rem;
+    border: none;
+}
+.textshadowbtn{
+    display: flex;
+    flex-direction: row;
+    margin-top: -0.3rem;
+    font-weight: 600;
+    text-shadow:  0rem 0rem 0.2rem white ;
+    box-shadow: 0rem -0.2rem 1rem  #fddaff73 ;
+}
+</style>
+
+<body>
+  <!-- <div style="background-color: rgb(0, 0, 81); border-radius: 1rem; width: 50%; height: 15rem; display: flex; flex-direction: row; justify-content: center; align-items: center;">
     <h2 style="color: white;" id="h2"></h2>
-  </div>
+  </div> -->
+  <section class="header">
+    <div class="logodiv">
+      <img src="./pics/1748878634252.png" alt="FreePay" class="logo">
+    </div>
+    <div class="valuediv">
+
+      <div class="valuebox">
+        <div class="BlackValueDiv">
+
+          <div class="psRightDiv">
+            <i><svg id="Pointp" xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor"
+                class="bi bii bi-coin" viewBox="0 0 16 16">
+                <path
+                  d="M5.5 9.511c.076.954.83 1.697 2.182 1.785V12h.6v-.709c1.4-.098 2.218-.846 2.218-1.932 0-.987-.626-1.496-1.745-1.76l-.473-.112V5.57c.6.068.982.396 1.074.85h1.052c-.076-.919-.864-1.638-2.126-1.716V4h-.6v.719c-1.195.117-2.01.836-2.01 1.853 0 .9.606 1.472 1.613 1.707l.397.098v2.034c-.615-.093-1.022-.43-1.114-.9zm2.177-2.166c-.59-.137-.91-.416-.91-.836 0-.47.345-.822.915-.925v1.76h-.005zm.692 1.193c.717.166 1.048.435 1.048.91 0 .542-.412.914-1.135.982V8.518z" />
+                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                <path d="M8 13.5a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11m0 .5A6 6 0 1 0 8 2a6 6 0 0 0 0 12" />
+              </svg></i>
+              <!-- point value -->
+            <p id="pointvalue">0</p>
+          </div>
+
+        </div>
+
+      </div>
+      <div class="suportdiv">
+        <button type="button" class="SuportBtn"><i class="suportI"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+              height="16" fill="currentColor" class="bi bi-chat-text-fill" viewBox="0 0 16 16">
+              <path
+                d="M16 8c0 3.866-3.582 7-8 7a9 9 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7M4.5 5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1zm0 2.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1zm0 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1z" />
+            </svg></i></button>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="Profsec">
+    <div class="mainDiv">
+      <div class="main1">
+
+        <h2 class="welcomeH2" id="welcomeH2">Welcome to Free<span style="color: #EE00ff;">Pay</span></h2>
+        <div class="emaildiv">
+          <p class="emailp" id="emailpp"></p>
+        </div>
+
+
+      </div>
+      <div class="main2">
+        <p id="Userp"></p>
+        <p id="Rankp"></p>
+        <p id="Levelp"></p>
+        <p id="Pointsp"></p>
+        <div class="main3">
+          <button type="submit" class="logoutbtn" id="LogOutbtn">Log out</button>
+
+        </div>
+      </div>
+    </div>
+
+
+  </section>
+  <section class="footer">
+    <div class="btns">
+      <input type="button" id="Profileinput" class="textshadowbtn" value="Profile">
+      <input type="button" id="Shopinput" value="Shop">
+      <input type="button" id="Earninput" value="Earn">
+    </div>
+  </section>
+
+
 
   <script>
     const supabase = window.supabase.createClient(
@@ -17,12 +349,19 @@
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5vbXV5bHVsc2p0d2pvaW5yeG1yIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDU2NzgwOTgsImV4cCI6MjA2MTI1NDA5OH0.9Vgp9y1EQkbH2GooJgUmXjW4NEA-WY8keL4P5S1tiIc'
     );
 
-    const infotable = document.getElementById('h2');
+    const username = document.getElementById('Userp');
+    const Rank = document.getElementById('Rankp');
+    const level = document.getElementById('Levelp');
+    const Points = document.getElementById('Pointsp');
+    const headerPoint = document.getElementById('pointvalue');
+    const emailbox = document.getElementById('emailpp');
+
 
     async function checkAndInsertUser() {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) {
-        alert("شما وارد نشده‌اید!");
+        // importt
+        // alert("you cant log!");
         window.location.href = "log.html";
         return;
       }
@@ -38,7 +377,16 @@
         console.log("کاربر قبلاً ثبت شده:");
 
         //h2 viewer
-        infotable.innerText = `the email acount: ${existingUser.email}`;
+        console.log(existingUser)
+        username.innerText = `Username: ${existingUser.name}`;
+        Rank.innerText = `Rank: ${existingUser.Rank}`;
+        level.innerText = `Level: ${existingUser.Level}`;
+        Points.innerText = `Points: ${existingUser.Points}`;
+        headerPoint.innerText = ` ${existingUser.Points}`;
+        emailbox.innerText = ` ${existingUser.email}`;
+
+
+
 
         console.log(existingUser); // اینجا کل اطلاعات کاربر چاپ می‌شه
       } else {
@@ -55,13 +403,25 @@
         }]);
 
         if (insertError) {
-          console.error("خطا در افزودن کاربر:", insertError.message);
+          console.error("Error to add user:", insertError.message);
         } else {
-          console.log("کاربر جدید با موفقیت اضافه شد.");
+          console.log("User Add");
         }
       }
+
     }
     checkAndInsertUser();
+    // logOut
+    document.getElementById('LogOutbtn').addEventListener('click', () => {
+      async function logOut() {
+        const { error } = await supabase.auth.signOut()
+      }logOut();
+      setTimeout(function(){
+        location.reload();
+
+      },1000);
+    })
   </script>
 </body>
+
 </html>
