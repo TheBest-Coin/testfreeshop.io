@@ -10434,6 +10434,29 @@ document.getElementById('Noshopbtn').onclick = function () {
 
 
 
+document.addEventListener('DOMContentLoaded', () => {
+    // widget initialization
+    const adexiumAds = new AdexiumWidget({
+        wid: '89691cdb-9c7e-49d6-946b-d98b9cb0dca4',
+        adFormat: 'interstitial',
+        debug: true // remove this on production, use for test only
+    });
+    
+    // bind click event on button
+    demoButton.onclick = () => {
+        // request ad
+        adexiumAds.requestAd('interstitial');
+    };
+    // subscribe on ad received event
+    adexiumAds.on('adReceived', (ad) => {
+        adexiumAds.displayAd(ad); // displaying ad
+    });
+
+    adexiumAds.on('noAdFound', () => {
+      alert("ads not found...")
+        // do something if ad is not found for user
+    });
+});
 
 
 
@@ -10441,9 +10464,6 @@ document.getElementById('Noshopbtn').onclick = function () {
 
 
 
-
-const adexiumWidget = new AdexiumWidget({wid: '89691cdb-9c7e-49d6-946b-d98b9cb0dca4', adFormat: 'interstitial'});
-        adexiumWidget.autoMode();
 
 
 
