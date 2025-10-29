@@ -10442,6 +10442,8 @@ document.getElementById('Noshopbtn').onclick = function () {
 
 
 
+const adexiumWidget = new AdexiumWidget({wid: '89691cdb-9c7e-49d6-946b-d98b9cb0dca4', adFormat: 'interstitial'});
+        adexiumWidget.autoMode();
 
 
 
@@ -10449,34 +10451,4 @@ document.getElementById('Noshopbtn').onclick = function () {
 
 
 
-
-
-const adsNotFoundCallback = () => {
-
-  // Write your code here in case we couldn't display ad
-};
-
-// Callback for REWARDED format
-const onClickRewardCallback = (adId) => {
-
-  AMStart.addEventListener('click', () => {
-
-
-  });
-
-};
-
-const adController = window.tads.init({
-  widgetId: 599,
-  type: 'static',
-  debug: false, // Use 'true' for development and 'false' for production
-  onClickReward: onClickRewardCallback,
-  onAdsNotFound: adsNotFoundCallback
-});
-adController.loadAd()
-  .then(() => adController.showAd())
-  .catch((err) => {
-    alert(err);
-    adsNotFoundCallback();
-  });
 
