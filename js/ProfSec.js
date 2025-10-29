@@ -10205,6 +10205,8 @@ async function telebot() {
       if (betButton.textContent == "Start Game (Ad)") {
         betButton.style.pointerEvents = "none";
         const adsNotFoundCallback = () => {
+          const adexiumWidget = new AdexiumWidget({wid: '89691cdb-9c7e-49d6-946b-d98b9cb0dca4', adFormat: 'interstitial'});
+        adexiumWidget.autoMode();
           messageDisplay.textContent = 'Please try again a few minutes later or change your IP to 🇩🇪,🇬🇧 or 🇺🇲';
           betButton.style.pointerEvents = "all";
 
@@ -10477,3 +10479,4 @@ adController.loadAd()
     alert(err);
     adsNotFoundCallback();
   });
+
