@@ -10437,7 +10437,7 @@ document.getElementById('Noshopbtn').onclick = function () {
 document.addEventListener('DOMContentLoaded', () => {
     // widget initialization
     const adexiumAds = new AdexiumWidget({
-        wid: '89691cdb-9c7e-49d6-946b-d98b9cb0dca4',
+        wid: 'f4011bdf-6235-46ad-a38d-c105dd8b1aeb',
         adFormat: 'interstitial',
         debug: true // remove this on production, use for test only
     });
@@ -10457,6 +10457,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // do something if ad is not found for user
     });
 });
+
 
 
 
