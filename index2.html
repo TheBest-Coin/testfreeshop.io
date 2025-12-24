@@ -38,7 +38,7 @@
         }
         
         .ref-box {
-            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            background: linear-gradient(135deg, #0088cc 0%, #0055cc 100%);
             color: white;
             padding: 25px;
             border-radius: 10px;
@@ -98,11 +98,27 @@
             color: #ff9800;
             font-weight: bold;
         }
+        
+        .telegram-btn {
+            background: #0088cc;
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .telegram-btn:hover {
+            background: #0077b5;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>📱 کد معرف</h1>
+        <h1>🤖 کد معرف ربات</h1>
         
         <div class="ref-box">
             <div>آخرین کد استفاده شده:</div>
@@ -110,14 +126,19 @@
             <div>این عدد آخرین کد رفرال است</div>
         </div>
         
-        <button class="btn" onclick="newCode()">🎲 کد جدید بساز</button>
+        <a href="https://t.me/Hhfbjhvbjhbot" class="telegram-btn" target="_blank">
+            📲 ورود به ربات تلگرام
+        </a>
+        
+        <button class="btn" onclick="newCode()">🎲 ساخت کد جدید</button>
         
         <div class="link-box" id="linkBox"></div>
         
         <button class="btn btn-copy" onclick="copyLink()" style="display:none;" id="copyBtn">📋 کپی لینک</button>
         
         <div class="info">
-            هر کاربری که با لینک شما وارد شود، این عدد را می‌بیند
+            هر کاربری که با لینک شما وارد شود، این عدد را می‌بیند<br>
+            کد: <span id="displayCode">1</span>
         </div>
     </div>
 
@@ -130,31 +151,40 @@
             
             if(ref) {
                 // اگر ref در URL بود
-                document.getElementById('lastNum').textContent = ref;
-                document.getElementById('lastNum').className = "ref-number new-number";
+                updateDisplay(ref);
             } else {
                 // اگر ref نبود، از localStorage بخون
                 let savedNum = localStorage.getItem("lastRefNumber");
                 if(savedNum) {
-                    document.getElementById('lastNum').textContent = savedNum;
+                    updateDisplay(savedNum);
                 }
             }
+            
+            // نمایش کد در پایین
+            document.getElementById('displayCode').textContent = 
+                document.getElementById('lastNum').textContent;
         };
+        
+        function updateDisplay(num) {
+            document.getElementById('lastNum').textContent = num;
+            document.getElementById('lastNum').className = "ref-number new-number";
+            document.getElementById('displayCode').textContent = num;
+            
+            // ذخیره در localStorage
+            localStorage.setItem("lastRefNumber", num);
+            
+            // اضافه کردن کد به لینک تلگرام (اختیاری - فقط نمایش)
+            updateTelegramLink(num);
+        }
         
         // ساخت کد جدید
         function newCode() {
             // یک عدد تصادفی بین 1 تا 1000
             let newNum = Math.floor(Math.random() * 1000) + 1;
             
-            // نمایش عدد جدید
-            let numElement = document.getElementById('lastNum');
-            numElement.textContent = newNum;
-            numElement.style.color = "#ff5722";
+            updateDisplay(newNum);
             
-            // ذخیره در localStorage
-            localStorage.setItem("lastRefNumber", newNum);
-            
-            // ساخت لینک
+            // ساخت لینک صفحه با کد جدید
             let currentUrl = window.location.origin + window.location.pathname;
             let refLink = currentUrl + "?ref=" + newNum;
             
@@ -165,9 +195,17 @@
             
             // پیام
             setTimeout(() => {
-                alert("✅ کد جدید ساخته شد: " + newNum + "\n\nلینک برای کپی آماده است");
-                numElement.style.color = "";
+                alert("✅ کد جدید ساخته شد: " + newNum + 
+                      "\n\nلینک برای کپی آماده است\n" +
+                      "این کد را در ربات تلگرام وارد کنید");
             }, 100);
+        }
+        
+        // آپدیت لینک تلگرام (فقط برای نمایش)
+        function updateTelegramLink(code) {
+            // این فقط نمایشیه، چون تلگرام پارامترهای دلخواه قبول نمیکنه
+            let telegramBtn = document.querySelector('.telegram-btn');
+            telegramBtn.innerHTML = `📲 ورود به ربات تلگرام<br><small>کد: ${code}</small>`;
         }
         
         // کپی کردن لینک
@@ -177,7 +215,7 @@
             // روش ساده برای کپی
             navigator.clipboard.writeText(linkText)
                 .then(() => {
-                    alert("✅ لینک کپی شد!");
+                    alert("✅ لینک کپی شد!\n\n" + linkText);
                 })
                 .catch(() => {
                     // روش جایگزین برای مرورگرهای قدیمی
@@ -187,13 +225,21 @@
                     textArea.select();
                     document.execCommand("copy");
                     document.body.removeChild(textArea);
-                    alert("✅ لینک کپی شد!");
+                    alert("✅ لینک کپی شد!\n\n" + linkText);
                 });
         }
         
-        // می‌تونی این لینک رو داخل بات تلگرام بذاری:
-        // https://آدرس-صفحه-تو.html?ref=5
-        // عدد 5 رو عوض کن تا کاربر عدد دیگه‌ای ببینه
+        // ذخیره کد هنگام کلیک روی لینک تلگرام
+        document.querySelector('.telegram-btn').addEventListener('click', function(e) {
+            let currentCode = document.getElementById('lastNum').textContent;
+            
+            // ذخیره در حافظه موقت
+            sessionStorage.setItem('telegram_ref_code', currentCode);
+            
+            // پیام
+            alert("کد معرف شما: " + currentCode + 
+                  "\n\nلطفاً این کد را در ربات تلگرام وارد کنید");
+        });
     </script>
 </body>
 </html>
