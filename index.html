@@ -20,6 +20,39 @@
   <link rel="stylesheet" href="./style/anime.css">
   <link rel="stylesheet" href="./style/Bg.css">
 
+  <style>
+     .bubble-container {
+            width: 90vw;
+            height: 70vh;
+            position: relative;
+            background: rgba(20, 20, 40, 0.3);
+            border-radius: 20px;
+            border: 2px solid rgba(255, 107, 157, 0.2);
+            overflow: hidden;
+            box-shadow: 0 0 50px rgba(0, 224, 255, 0.1);
+        }
+        
+        .container-title {
+            position: absolute;
+            top: 20px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            color: white;
+            font-size: 1.8rem;
+            z-index: 10;
+            text-shadow: 0 0 10px rgba(255, 107, 157, 0.7);
+        }
+        
+        .bubble {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, 
+                rgba(255, 107, 157, 0.3), 
+                rgba(0, 224, 255, 0.15));
+            pointer-events: none;
+        }
+  </style>
 </head>
 
 <body>
@@ -50,15 +83,10 @@
   </div>
 
 
-  <!-- particles.js container -->
-  <div id="particles-js"></div> <!-- stats - count particles -->
-  <div class="count-particles"
-    style="background-color: rgba(0, 128, 0, 0);width: 100%;height: 20%;display: flex;flex-direction: row;align-items: center;justify-content: center;">
-    <h1
-      style="display: flex;flex-direction: row;background-color: rgba(0, 0, 255, 0); margin-top: 4rem;width: 30rem;height: 3rem;"
-      class="shoph2"> The Free Pay NFTs</h1>
-
-  </div>
+    <div class="bubble-container" id="bubbleContainer">
+        <div class="container-title">Bubble Paradise 🌸</div>
+    </div>
+  
 
   <!-- shopsec -->
   <section class="secc2" id="shopsec">
@@ -345,6 +373,121 @@
       // }, 8000);
     });
 
+    class BubbleRain {
+            constructor(container) {
+                this.container = container;
+                this.bubbles = [];
+                this.maxBubbles = 20;
+                this.animationId = null;
+                this.containerHeight = container.clientHeight;
+                this.init();
+            }
+            
+            init() {
+                // ایجاد حباب‌های اولیه
+                for (let i = 0; i < 12; i++) {
+                    setTimeout(() => this.createBubble(), i * 200);
+                }
+                
+                // ایجاد حباب‌های جدید
+                setInterval(() => {
+                    if (this.bubbles.length < this.maxBubbles) {
+                        this.createBubble();
+                    }
+                }, 800);
+                
+                // شروع انیمیشن
+                this.animate();
+                
+                // بروزرسانی ارتفاع هنگام resize
+                window.addEventListener('resize', () => {
+                    this.containerHeight = this.container.clientHeight;
+                });
+            }
+            
+            createBubble() {
+                const bubble = document.createElement('div');
+                bubble.className = 'bubble';
+                
+                // اندازه تصادفی
+                const size = 10 + Math.random() * 35;
+                bubble.style.width = `${size}px`;
+                bubble.style.height = `${size}px`;
+                
+                // موقعیت تصادفی در بالای کانتینر
+                const containerWidth = this.container.clientWidth;
+                bubble.style.left = `${Math.random() * (containerWidth - size)}px`;
+                bubble.style.top = `-${size}px`;
+                
+                // شفافیت اولیه
+                bubble.style.opacity = 0.3 + Math.random() * 0.5;
+                
+                this.container.appendChild(bubble);
+                
+                // ذخیره اطلاعات حباب
+                this.bubbles.push({
+                    element: bubble,
+                    y: -size,
+                    speed: 0.3 + Math.random() * 0.7,
+                    size: size,
+                    fadePoint: 30 + Math.random() * 20 // نقطه شروع محو شدن (% از ارتفاع)
+                });
+            }
+            
+            animate() {
+                const containerHeight = this.containerHeight;
+                
+                for (let i = this.bubbles.length - 1; i >= 0; i--) {
+                    const bubble = this.bubbles[i];
+                    
+                    // حرکت به پایین
+                    bubble.y += bubble.speed;
+                    bubble.element.style.top = `${bubble.y}px`;
+                    
+                    // کمی حرکت جانبی موجی
+                    const currentLeft = parseFloat(bubble.element.style.left);
+                    const wave = Math.sin(bubble.y / 50) * 1.5;
+                    bubble.element.style.left = `${currentLeft + wave}px`;
+                    
+                    // محاسبه موقعیت عمودی (از 0 تا 100 درصد)
+                    const positionPercent = (bubble.y / containerHeight) * 100;
+                    
+                    // اگر به نقطه محو شدن رسید
+                    if (positionPercent >= bubble.fadePoint) {
+                        const fadeProgress = (positionPercent - bubble.fadePoint) / (50 - bubble.fadePoint);
+                        const opacity = Math.max(0, 1 - fadeProgress);
+                        bubble.element.style.opacity = opacity;
+                    }
+                    
+                    // اگر از کانتینر خارج شد یا کاملاً محو شد
+                    if (bubble.y > containerHeight + 50 || parseFloat(bubble.element.style.opacity) <= 0.05) {
+                        bubble.element.remove();
+                        this.bubbles.splice(i, 1);
+                    }
+                }
+                
+                // ادامه انیمیشن
+                this.animationId = requestAnimationFrame(() => this.animate());
+            }
+            
+            stop() {
+                if (this.animationId) {
+                    cancelAnimationFrame(this.animationId);
+                }
+            }
+        }
+        
+        // راه‌اندازی
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('bubbleContainer');
+            const bubbleRain = new BubbleRain(container);
+            
+            // توقف هنگام خروج از صفحه
+            window.addEventListener('beforeunload', () => {
+                bubbleRain.stop();
+            });
+        });
+
   </script>
 
   <script src="http://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script> <!-- stats.js lib -->
@@ -352,6 +495,7 @@
 
   <script src="./js/ProfSec.js"></script>
 </body>
+
 
 
 </html>
