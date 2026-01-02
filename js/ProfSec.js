@@ -6,9 +6,9 @@ const tg = window.Telegram.WebApp;
 const user = tg.initDataUnsafe?.user;
 const referrerId = tg.initDataUnsafe?.start_param;
 if(referrerId){
-  console.log('User Ref:'+ referrerId);
+  alert('User Ref:'+ referrerId);
 }else{
-  console.log('User Ref Not Found:'+referrerId);
+  alert('User Ref Not Found:'+referrerId);
 }
 
 
@@ -10768,4 +10768,5 @@ document.getElementById('ProfileShowBtn').addEventListener('click',()=>{
   window.location.href = 'https://thefreepay.github.io/FreePayNfts/';
 
 })
+
 
